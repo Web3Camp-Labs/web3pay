@@ -55,9 +55,16 @@ In your webpage
     }
     
 ```
-blockchain: We support ethereum, bsc, polygon now
-amount: The amount that you need to pay
-receiver:The address receiving the payment
+
+###### blockchain: 
+We support ethereum, bsc, polygon now
+
+###### amount: 
+The amount that you need to pay
+
+###### receiver:
+The address receiving the payment
+
 
 ## Develop Web3pay
 
