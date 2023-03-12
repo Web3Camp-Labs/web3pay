@@ -19,24 +19,45 @@ or
     yarn add @web3camp-labs/web3pay
 ```
 
-Make sure you install peer dependencies,too, in case your project does not have them installed yet:
-```angular2html
-    npm install ethers react react-dom --save
-```
-or
-```angular2html
-    yarn add ethers react react-dom
-```
-
-In your webpage
-
+### In your webpage
+Button mode:
 ```angular2html
     import { PayBtn }  from "@web3camp-labs/web3pay";
+
 
     function App() {
         return (
             <div className="App">
                 <PayBtn accept = {
+                    [
+                        {
+                            blockchain: 'ethereum',
+                            amount:0.0001,
+                            receiver: '0x4e2........02'
+                        },
+                        {
+                            blockchain: 'bsc',
+                            amount:0.01,
+                            receiver: '0x07D.......153'
+                        }
+                    ]
+                 } />
+             </div>
+        );
+    }
+    
+```
+
+
+Widget mode:
+```angular2html
+    import { Widget }  from "@web3camp-labs/web3pay";
+
+
+    function App() {
+        return (
+            <div className="App">
+                <Widget accept = {
                     [
                         {
                             blockchain: 'ethereum',
