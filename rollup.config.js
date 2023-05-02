@@ -4,6 +4,8 @@ import babel from '@rollup/plugin-babel'
 import ts from 'rollup-plugin-typescript2'
 import dts from "rollup-plugin-dts";
 import path from 'path';
+import json from "@rollup/plugin-json";
+// import copy from 'rollup-plugin-copy';
 
 export default [{
     input: 'src/packages/index.ts',
@@ -23,6 +25,7 @@ export default [{
         ts({
             tsconfig: path.resolve(__dirname, 'tsconfig.json')
         }),
+        json(),
         commonjs(),
         babel({
             babelrc: false,
