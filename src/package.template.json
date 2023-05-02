@@ -1,0 +1,15 @@
+{
+    "name": "test-web3-pay",
+    "version": "0.0.1",
+    "description": "For Test Only",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "peerDependencies": {
+        "ethers": "^5.7.2",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "license": "ISC"
+}
