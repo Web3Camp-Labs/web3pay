@@ -20,6 +20,8 @@ export interface ShowItem extends Item{
 }
 export interface ButtonProps extends ConfigProps{
     current:number;
+    handleHide?:Function
+
 }
 
 export interface chainObj{

@@ -2,6 +2,8 @@ import ButtonBox from "./ButtonBox";
 import {useEffect, useState} from "react";
 import {ModalProps,ShowItem} from "../type/type";
 import GeneralConfig from "../config";
+import {ethers} from "ethers";
+import Erc20Abi from "../abi/ERC20.json";
 
 export default function Modal(props:ModalProps){
     const {handleHide,accept} = props;
@@ -11,22 +13,40 @@ export default function Modal(props:ModalProps){
 
     useEffect(()=>{
         if(!accept)return;
+        formatArr();
+    },[accept])
+
+    const formatArr = async () =>{
         let arr:ShowItem[]=[];
-        accept.map((receiverItem)=>{
-            GeneralConfig.chainList.map((item)=>{
+        for await ( let receiverItem  of accept ){
+            for await (let item of GeneralConfig.chainList ){
                 if( receiverItem.blockchain === item.blockchain){
-                    let obj ={
-                        ...receiverItem,
-                        logo:item.logo,
-                        symbol:item.nativeCurrency.symbol
+                    let obj;
+                    if(!receiverItem.token){
+                        obj ={
+                            ...receiverItem,
+                            logo:item.logo,
+                            symbol:item.nativeCurrency.symbol
+                        }
+                    }else{
+                        const { ethereum } = window as any;
+                        const web3Provider = new ethers.providers.Web3Provider(ethereum);
+                        const contract = new ethers.Contract(receiverItem.token, Erc20Abi, web3Provider);
+                        let sym = await contract.symbol();
+                        obj ={
+                            ...receiverItem,
+                            logo:item.logo,
+                            symbol:sym
+                        }
+
                     }
+
                     arr.push(obj);
                 }
-            })
-        })
+            }
+        }
         setList(arr);
-
-    },[accept])
+    }
 
     const handleShow = () =>{
         setShow(true)
@@ -72,7 +92,7 @@ export default function Modal(props:ModalProps){
                 }
 
             </div>
-            <ButtonBox current={current} accept={accept} />
+            <ButtonBox current={current} accept={accept} handleHide={handleHide} />
         </div>
     </div>
 }

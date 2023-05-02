@@ -1,11 +1,12 @@
 import {ethers} from "ethers";
 import {useEffect, useState} from "react";
-import {ButtonProps,chainObj} from "../type/type";
+import {ButtonProps, chainObj, Item} from "../type/type";
 import GeneralConfig from "../config";
 import Loading from "./loading";
+import Erc20Abi from "../abi/ERC20.json";
 
 export default function ButtonBox(props:ButtonProps){
-    const { current,accept } = props;
+    const { current,accept,handleHide } = props;
 
     const [account,setAccount] =useState<string>('');
     const [error,setError] =useState<string>('');
@@ -24,7 +25,6 @@ export default function ButtonBox(props:ButtonProps){
         }
 
     }
-
 
     const switchETH = async() =>{
         const { ethereum} = window as any;
@@ -68,35 +68,55 @@ export default function ButtonBox(props:ButtonProps){
         setAccount(accounts[0]);
     }
 
+    useEffect(()=>{
+        getAccount();
+        chainChange();
+    },[])
+
     const handleTransfer = async () =>{
         setLoading(true);
         setError('')
-        await chainChange();
-        await getAccount();
-
         const { ethereum } = window as any;
         const web3Provider = new ethers.providers.Web3Provider(ethereum);
 
         const signer = await web3Provider.getSigner();
-
         const amount = accept[current].amount.toString();
-        console.log(signer)
-
+        if(!accept[current].token){
             try{
                 let tx = await signer.sendTransaction({
                     to: accept[current].receiver,
                     value: ethers.utils.parseEther(amount),
                 });
                 let res =  await tx.wait();
-                console.log(res)
                 setLoading(false);
+                handleHide && handleHide();
             }catch (e) {
-                console.log((e as any).message)
+                console.error((e as any).message)
                 setError((e as any).code)
                 setLoading(false);
             }
+        }else{
+            transferToken(accept[current])
+        }
+    }
 
-
+    const transferToken = async (obj:Item) =>{
+        try{
+            const { ethereum } = window as any;
+            const provider = new ethers.providers.Web3Provider(ethereum);
+            const signer = await provider.getSigner(account);
+            const ErcContract = new ethers.Contract(obj.token!, Erc20Abi, signer);
+            const decimals = await ErcContract.decimals();
+            const amountErc = ethers.utils.parseUnits(obj.amount.toString(),decimals);
+            const result = await ErcContract.transfer(obj.receiver,amountErc.toString())
+            const rt =await result.wait();
+            setLoading(false);
+            handleHide && handleHide();
+        }catch (e) {
+            console.error((e as any).message)
+            setError((e as any).code)
+            setLoading(false);
+        }
     }
 
     return <div className="web3camp_widget_Tips_outer">

@@ -36,7 +36,7 @@ const GeneralConfig = {
         },
         {
             onlineChainId: '0x61',
-            blockchain: 'bsc2',
+            blockchain: 'bscTest',
             logo:"https://web3camp.us/LogoCollection/static/media/bnb-bnb.7d07197205e10636c769.png",
             chainName: 'Binance Smart Chain - Testnet',
             nativeCurrency: {
