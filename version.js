@@ -18,3 +18,5 @@ fs.writeFile("./src/package.template.json", functionStr, (err, data) => {
     })
 });
 
+// npm publish --access public
+
