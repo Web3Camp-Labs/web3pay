@@ -1,9 +1,10 @@
 import PayBtn from "./payBtn";
-import {ConfigProps} from "../type/type";
+import {chainObj, ConfigProps} from "../type/type";
 import GeneralConfig from "../config";
 import {useEffect, useState} from "react";
 import Erc20Abi from "../abi/ERC20.json";
 import {ethers} from "ethers";
+import PublicObj from "../public";
 
 export default function Widget(props:ConfigProps){
     const [symbol,setSymbol] = useState<string>();
@@ -16,21 +17,31 @@ export default function Widget(props:ConfigProps){
         if(!accept || !accept[0])return;
         GeneralConfig.chainList.map((item)=>{
             if( accept[0].blockchain !== item.blockchain)return;
+            PublicObj.chainChange(accept,0);
             if(!accept[0].token){
                 setSymbol(item.nativeCurrency.symbol);
             }else{
                 getSym(accept[0].token);
             }
-
             setLogo(item.logo);
         })
         setAmount(accept[0].amount);
-
     },[accept]);
+
+    useEffect(()=>{
+        (window as any).ethereum.on('chainChanged', () => {
+            getSym(accept[0].token!);
+        });
+    },[])
 
     const getSym = async(addr:string) =>{
         const { ethereum } = window as any;
         const web3Provider = new ethers.providers.Web3Provider(ethereum);
+        const arr = GeneralConfig.chainList.filter(item=>item.blockchain === accept[0].blockchain);
+        if(arr.length === 0 ) return;
+        const {chainId} = await web3Provider.getNetwork();
+        const arrChain = eval(arr[0].onlineChainId!)?.toString(10);
+        if(chainId !== Number(arrChain)) return;
         const contract = new ethers.Contract(addr, Erc20Abi, web3Provider);
         let sym = await contract.symbol();
         setSymbol(sym);

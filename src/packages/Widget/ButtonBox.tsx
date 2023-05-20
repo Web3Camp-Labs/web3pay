@@ -4,6 +4,7 @@ import {ButtonProps, chainObj, Item} from "../type/type";
 import GeneralConfig from "../config";
 import Loading from "./loading";
 import Erc20Abi from "../abi/ERC20.json";
+import PublicObj from "../public";
 
 export default function ButtonBox(props:ButtonProps){
     const { current,accept,handleHide } = props;
@@ -12,50 +13,8 @@ export default function ButtonBox(props:ButtonProps){
     const [error,setError] =useState<string>('');
     const [loading,setLoading] = useState(false);
 
-    const chainChange = async () =>{
 
-        for (let item of GeneralConfig.chainList){
-            if( accept[current].blockchain === item.blockchain){
-                if(item.blockchain === "ethereum"){
-                    await switchETH();
-                }else{
-                    await switchChain(item);
-                }
-            }
-        }
 
-    }
-
-    const switchETH = async() =>{
-        const { ethereum} = window as any;
-       await ethereum.request({
-            method: "wallet_switchEthereumChain",
-            params: [{
-                chainId: "0x1"
-            }]
-        }).catch((error:any)=>{
-            console.error(error)
-       })
-
-    }
-    const switchChain = async (item:chainObj) =>{
-        const { ethereum} = window as any;
-        const { chainName,nativeCurrency:{name,symbol,decimals},rpcUrls,blockExplorerUrls,onlineChainId } = item;
-        await ethereum.request({
-            method: 'wallet_addEthereumChain',
-            params: [{
-                chainId:onlineChainId,
-                chainName,
-                nativeCurrency: {
-                    name,
-                    symbol,
-                    decimals
-                },
-                rpcUrls,
-                blockExplorerUrls
-            }]
-        })
-    }
 
     const getAccount = async () =>{
         const { ethereum } = window as any;
@@ -70,7 +29,7 @@ export default function ButtonBox(props:ButtonProps){
 
     useEffect(()=>{
         getAccount();
-        chainChange();
+        PublicObj.chainChange(accept,0);
     },[])
 
     const handleTransfer = async () =>{

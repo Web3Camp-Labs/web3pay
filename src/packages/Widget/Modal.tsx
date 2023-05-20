@@ -4,6 +4,7 @@ import {ModalProps,ShowItem} from "../type/type";
 import GeneralConfig from "../config";
 import {ethers} from "ethers";
 import Erc20Abi from "../abi/ERC20.json";
+import PublicObj from "../public";
 
 export default function Modal(props:ModalProps){
     const {handleHide,accept} = props;
@@ -16,10 +17,17 @@ export default function Modal(props:ModalProps){
         formatArr();
     },[accept])
 
+    useEffect(()=>{
+        (window as any).ethereum.on('chainChanged', () => {
+            formatArr();
+        });
+    },[])
+
     const formatArr = async () =>{
         let arr:ShowItem[]=[];
         for await ( let receiverItem  of accept ){
-            for await (let item of GeneralConfig.chainList ){
+            for await (let item of GeneralConfig.chainList){
+                console.log(receiverItem.blockchain , item.blockchain)
                 if( receiverItem.blockchain === item.blockchain){
                     let obj;
                     if(!receiverItem.token){
@@ -29,19 +37,41 @@ export default function Modal(props:ModalProps){
                             symbol:item.nativeCurrency.symbol
                         }
                     }else{
-                        const { ethereum } = window as any;
-                        const web3Provider = new ethers.providers.Web3Provider(ethereum);
-                        const contract = new ethers.Contract(receiverItem.token, Erc20Abi, web3Provider);
-                        let sym = await contract.symbol();
-                        obj ={
-                            ...receiverItem,
-                            logo:item.logo,
-                            symbol:sym
+
+                        if(receiverItem.blockchain === "ethereum"){
+                            obj ={
+                                ...receiverItem,
+                                logo:item.logo,
+                                symbol:"ETH"
+                            }
+                        }else{
+                            const { ethereum } = window as any;
+                            const web3Provider = new ethers.providers.Web3Provider(ethereum);
+                            const {chainId} = await web3Provider.getNetwork();
+                            const arrChain = eval(item.onlineChainId!).toString(10);
+                            if(chainId !== Number(arrChain)){
+                                obj ={
+                                    ...receiverItem,
+                                    logo:item.logo,
+                                    symbol:"..."
+                                }
+                            }else{
+                                const contract = new ethers.Contract(receiverItem.token, Erc20Abi, web3Provider);
+                                console.log(contract)
+                                let sym = await contract.symbol();
+                                obj ={
+                                    ...receiverItem,
+                                    logo:item.logo,
+                                    symbol:sym
+                                }
+                            }
+
                         }
 
                     }
 
                     arr.push(obj);
+                    console.log(obj)
                 }
             }
         }
@@ -55,6 +85,10 @@ export default function Modal(props:ModalProps){
     const handleCurrent = (num:number) =>{
         setCurrent(num);
         setShow(false);
+        console.log(accept,num)
+        if(accept[num]){
+            PublicObj.chainChange(accept,num);
+        }
     }
 
     if(!list.length)return null;
