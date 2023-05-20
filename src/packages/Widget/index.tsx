@@ -40,7 +40,7 @@ export default function Widget(props:ConfigProps){
         const arr = GeneralConfig.chainList.filter(item=>item.blockchain === accept[0].blockchain);
         if(arr.length === 0 ) return;
         const {chainId} = await web3Provider.getNetwork();
-        const arrChain = eval(arr[0].onlineChainId!)?.toString(10);
+        const arrChain = Number(arr[0].onlineChainId!)?.toString(10);
         if(chainId !== Number(arrChain)) return;
         const contract = new ethers.Contract(addr, Erc20Abi, web3Provider);
         let sym = await contract.symbol();

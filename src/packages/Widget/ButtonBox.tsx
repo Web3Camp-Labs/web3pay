@@ -40,9 +40,7 @@ export default function ButtonBox(props:ButtonProps){
     useEffect(()=>{
 
         const arr = GeneralConfig.chainList.filter(item=>item.blockchain === accept[current].blockchain);
-        console.log(arr)
-        const arrChain = eval(arr[0].onlineChainId!).toString(10);
-        console.error(parseInt(arrChain),currentChain,parseInt(arrChain) === currentChain)
+        const arrChain = Number(arr[0].onlineChainId!).toString(10);
         if(parseInt(arrChain) !== currentChain){
             setShowText(true)
         }else{

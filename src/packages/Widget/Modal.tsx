@@ -48,7 +48,7 @@ export default function Modal(props:ModalProps){
                             const { ethereum } = window as any;
                             const web3Provider = new ethers.providers.Web3Provider(ethereum);
                             const {chainId} = await web3Provider.getNetwork();
-                            const arrChain = eval(item.onlineChainId!).toString(10);
+                            const arrChain = Number(item.onlineChainId!).toString(10);
                             if(chainId !== Number(arrChain)){
                                 obj ={
                                     ...receiverItem,
