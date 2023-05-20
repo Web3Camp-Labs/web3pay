@@ -1,6 +1,7 @@
 const GeneralConfig = {
     chainList:[
         {
+            onlineChainId: '0x1',
             blockchain: 'ethereum',
             chainName:"Ethereum",
             logo:"https://web3camp.us/LogoCollection/static/media/ethereum-eth.a591fb8fd8f17e30185b.png",

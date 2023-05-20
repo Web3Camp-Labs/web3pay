@@ -12,9 +12,8 @@ export default function ButtonBox(props:ButtonProps){
     const [account,setAccount] =useState<string>('');
     const [error,setError] =useState<string>('');
     const [loading,setLoading] = useState(false);
-
-
-
+    const [showText,setShowText] = useState(false);
+    const [currentChain,setCurrentChain] = useState(1);
 
     const getAccount = async () =>{
         const { ethereum } = window as any;
@@ -31,6 +30,39 @@ export default function ButtonBox(props:ButtonProps){
         getAccount();
         PublicObj.chainChange(accept,0);
     },[])
+
+
+    useEffect(()=>{
+        setError('');
+        getChain()
+    },[current])
+
+    useEffect(()=>{
+
+        const arr = GeneralConfig.chainList.filter(item=>item.blockchain === accept[current].blockchain);
+        console.log(arr)
+        const arrChain = eval(arr[0].onlineChainId!).toString(10);
+        console.error(parseInt(arrChain),currentChain,parseInt(arrChain) === currentChain)
+        if(parseInt(arrChain) !== currentChain){
+            setShowText(true)
+        }else{
+            setShowText(false)
+        }
+
+    },[current,currentChain])
+
+    useEffect(()=>{
+        (window as any).ethereum.on('chainChanged', () => {
+            setShowText(false)
+        });
+    },[])
+
+    const getChain = async() =>{
+        const { ethereum } = window as any;
+        const web3Provider = new ethers.providers.Web3Provider(ethereum);
+        const {chainId} = await web3Provider.getNetwork();
+        setCurrentChain(chainId)
+    }
 
     const handleTransfer = async () =>{
         setLoading(true);
@@ -88,7 +120,7 @@ export default function ButtonBox(props:ButtonProps){
                 loading &&<Loading />
             }
 
-            <span>Pay</span>
+            <span>{showText?"Switch chain":"Pay"}</span>
             </button>
     </div>
 }
