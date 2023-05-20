@@ -1,6 +1,6 @@
 {
     "name": "@web3camp-labs/web3-pay",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "description": "This widget is the right way to integrate web3 pay",
     "main": "index.js",
     "repository": "https://github.com/Web3Camp-Labs/web3pay",
