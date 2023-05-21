@@ -1,4 +1,5 @@
 {
+  "declarationDir": "types",
   "compilerOptions": {
     "target": "es5",
     "lib": [
