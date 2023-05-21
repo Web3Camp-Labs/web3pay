@@ -8,6 +8,8 @@ This widget has two ways to use it:
 
 All of those way, after you click pay button, it will popup a tips to tell you the next step.
 
+# use in react
+
 ## Usage
 
 ```
@@ -76,6 +78,7 @@ Widget mode:
     
 ```
 
+# Use in html
 
 We also can use Web3pay in your homepage without any required experience in Javascript.
 
