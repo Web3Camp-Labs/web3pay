@@ -20,7 +20,7 @@ or
 
 ### In your webpage
 Button mode:
-```angular2html
+```
     import { PayBtn }  from "@web3camp-labs/web3pay";
 
 
@@ -49,7 +49,7 @@ Button mode:
 
 
 Widget mode:
-```angular2html
+```
     import { Widget }  from "@web3camp-labs/web3pay";
 
 
@@ -74,6 +74,73 @@ Widget mode:
         );
     }
     
+```
+
+
+We also can use Web3pay in your homepage without any required experience in Javascript.
+
+Widget mode:
+```
+    <div id="widget_container"></div>
+    <script src="/dist/umd/bundle.js"></script>
+    <script>
+        Web3pay.widgetInit({
+            containerId:"widget_container",
+            accept: [
+                    {
+                        blockchain: 'bscTest',
+                        amount:1,
+                        token: '0x387B...fb00',
+                        receiver: '0x183F...3191'
+                    },
+                    {
+                        blockchain: 'ethereum',
+                        amount:0.0001,
+                        // token: '0xdac1...1ec7',
+                        receiver: '0x4e26...3B02'
+                    },
+                    {
+                        blockchain: 'bscTest',
+                            amount:1,
+                        // token: '0xe9e7...7d56',
+                        receiver: '0x183F...3191'
+                    }
+                ]
+
+        });
+    </script>
+```
+
+Button mode:
+```
+    <div id="Button_container"></div>
+    <script src="/dist/umd/bundle.js"></script>
+    <script>
+        Web3pay.buttonInit({
+            containerId:"Button_container",
+            accept: [
+                    {
+                        blockchain: 'bscTest',
+                        amount:1,
+                        token: '0x387B...fb00',
+                        receiver: '0x183F...3191'
+                    },
+                    {
+                        blockchain: 'ethereum',
+                        amount:0.0001,
+                        // token: '0xdac1...1ec7',
+                        receiver: '0x4e26...3B02'
+                    },
+                    {
+                        blockchain: 'bscTest',
+                            amount:1,
+                        // token: '0xe9e7...7d56',
+                        receiver: '0x183F...3191'
+                    }
+                ]
+
+        });
+    </script>
 ```
 
 ###### blockchain: 
