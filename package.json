@@ -19,7 +19,7 @@
   },
   "scripts": {
     "clean": "rimraf ./dist",
-    "build": "npm run clean && rollup -c && node version.js",
+    "build": "npm run clean && rollup -c ./rollup.config.js -w && node version.js",
     "start": "react-scripts start"
   },
   "eslintConfig": {
