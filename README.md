@@ -85,7 +85,7 @@ We also can use Web3pay in your homepage without any required experience in Java
 Widget mode:
 ```
     <div id="widget_container"></div>
-    <script src="/dist/umd/bundle.js"></script>
+    <script src="https://raw.githubusercontent.com/Web3Camp-Labs/web3pay/v0.0.6/umd/bundle.js"></script>
     <script>
         Web3pay.widgetInit({
             containerId:"widget_container",
@@ -117,7 +117,7 @@ Widget mode:
 Button mode:
 ```
     <div id="Button_container"></div>
-    <script src="/dist/umd/bundle.js"></script>
+    <script src="https://raw.githubusercontent.com/Web3Camp-Labs/web3pay/v0.0.6/umd/bundle.js"></script>
     <script>
         Web3pay.buttonInit({
             containerId:"Button_container",
