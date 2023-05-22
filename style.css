@@ -1,0 +1,261 @@
+@font-face {
+    font-family: "AdobeGurmukhi-Bold";
+    src: url("https://web3camp.us/AdobeGurmukhi-Bold.otf");
+}
+@font-face {
+    font-family: "Helvetica";
+    src: url('https://web3camp.us/Helvetica.ttc');
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    background: #FAFBFC;
+    color: #666666;
+}
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Helvetica";
+}
+
+a{
+    text-decoration: none;
+    color: #666666;
+}
+a:hover{
+    color: purple;
+}
+
+ul,li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.btn-flat {
+    background-color: #2D1D0A;
+    color: white;
+    width: 152px;
+    height: 46px;
+    font-family: "Helvetica";
+}
+.btn-flat:focus{
+    outline: none;
+}
+.btn-flat:hover{
+    background: purple;
+    color: white;
+}
+.spinner-primary{
+    color: purple;
+}
+.backgroun-gray{
+    background: #f8f8f8;
+}
+.form-check-input:checked {
+    background-color: purple;
+    border-color: purple;
+}
+.form-check-input:focus{
+    outline: none;
+    border-color: #ccc;
+}
+.header{
+    /*box-shadow: 0 0 5px #ccc;*/
+    padding:23px 0;
+    background: #fff;
+}
+.header img{
+    height: 45px;
+}
+.headerTxt{
+    font-family: "Helvetica";
+    font-weight: bolder;
+    font-size: 32px;
+    /* text-transform: uppercase; */
+}
+.headetRht{
+    text-align: right;
+    font-size: 12px;
+    padding-top: 20px;
+}
+.spinner-primary{
+    color: purple;
+}
+.title{
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    font-weight: 400;
+    margin-top: 20px;
+    font-weight: lighter;
+}
+.tips{
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    opacity: 0.6;
+}
+.desc{
+    margin: 20px;
+    opacity: 0.6;
+    text-align: center;
+}
+.tipsBox{
+    opacity: 0.6;
+    font-size: 12px;
+    line-height: 1em;
+}
+.lastLine{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+}
+.lastLine button{
+    font-size: 12px;
+}
+.liBox div{
+    height: 100%;
+}
+.result{
+    text-align: center;
+    color:green;
+}
+
+.mainContent{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.flexLine{
+    display: flex;
+    align-content: center;
+    justify-content: space-between;
+
+}
+.box{
+    margin: 0 auto;
+}
+@media (min-width: 992px){
+    .box {
+        max-width: 768px;
+    }
+}
+@media (min-width: 1200px){
+    .box {
+        max-width: 1140px;
+    }
+}
+@media (min-width: 1400px){
+    .box {
+        max-width: 1320px;
+    }
+}
+.conBox{
+    margin-top: 20px;
+}
+.imgBox{
+    width: 96px;
+    height: 96px;
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid #EDEFF0;
+    padding: 13px;
+    margin-right: 16px;
+    box-sizing: border-box;
+
+}
+.imgBox img{
+    max-width: 100%;
+    max-height: 100%;
+}
+.titleTop{
+    font-family: Helvetica;
+    font-size: 16px;
+    text-align: left;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+}
+.titleTop .tit{
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: bold;
+}
+.flexLine .lft{
+    display: flex;
+    align-content: center;
+}
+.cardBox{
+    box-shadow: rgb(204, 204, 204) 0px 0px 5px;
+    border-radius: 6px;
+    padding: 40px;
+    box-sizing: border-box;
+    margin-top: 40px;
+    background: #fff;
+}
+.LftH1{
+    font-size: 20px;
+    padding-top: 40px;
+}
+.lftTips{
+    padding-top: 10px;
+    font-size: 18px;
+    padding-right: 50px;
+}
+.learn{
+    border: 1px solid rgb(0, 0, 0);
+    background: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 40px;
+    border-radius: 10px;
+}
+.top10{
+    display: flex;
+    align-content: center;
+    width: 100%;
+}
+.titBox{
+    margin: 40px 0 20px;
+    font-size: 20px;
+    font-family: Helvetica;
+    color: #000;
+}
+.top10 dl{
+    width: 32%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0,0.1);
+    border-radius: 10px;
+    padding:20px 40px;
+    line-height: 1.5em;
+}
+.footer{
+    height: 80px;
+    margin-top: 60px;
+    width: 100%;
+    padding-top: 15px;
+    background: #fff;
+    font-size: 14px;
+}
+.footer .midBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.footer .midBox img{
+    width: 40px;
+    height: 40px;
+}
+.footer .midBox .lft{
+    padding-left: 10px;
+}
+.footer .midBox a{
+    display: inline-block;
+    margin-left: 20px;
+}

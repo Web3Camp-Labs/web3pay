@@ -6,60 +6,129 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <script src="/dist/umd/bundle.js"></script>
+    <script src="https://raw.githack.com/Web3Camp-Labs/web3pay/gh-pages/umd/bundle.js"></script>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <div id="widget_container"></div>
-    <div id="Button_container"></div>
-    <script>
-        Web3pay.widgetInit({
-            containerId:"widget_container",
-            accept: [
-                    {
-                        blockchain: 'bscTest',
-                        amount:1,
-                        token: '0x387Bd586130a03e4c2ae3c9b9b5481C0993Bfb00',
-                        receiver: '0x183F09C3cE99C02118c570e03808476b22d63191'
-                    },
-                    {
-                        blockchain: 'ethereum',
-                        amount:0.0001,
-                        // token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
-                        receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-                    },
-                    {
-                        blockchain: 'bscTest',
-                            amount:1,
-                        // token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
-                        receiver: '0x183F09C3cE99C02118c570e03808476b22d63191'
-                    }
-                ]
+    <div class="mainContent">
+        <div class="header">
+            <div class="flexLine box">
+                <a href="https://web3camp.us" target="_blank" rel="noreferrer">
+                    <img src="data:image/png;base64,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" alt=""/>
+                </a>
+            </div>
 
-        });
-        Web3pay.buttonInit({
-            containerId:"Button_container",
-            accept: [
-                    {
-                        blockchain: 'bscTest',
-                        amount:1,
-                        token: '0x387Bd586130a03e4c2ae3c9b9b5481C0993Bfb00',
-                        receiver: '0x183F09C3cE99C02118c570e03808476b22d63191'
-                    },
-                    {
-                        blockchain: 'ethereum',
-                        amount:0.0001,
-                        // token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
-                        receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
-                    },
-                    {
-                        blockchain: 'bscTest',
-                            amount:1,
-                        // token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
-                        receiver: '0x183F09C3cE99C02118c570e03808476b22d63191'
-                    }
-                ]
+        </div>
+        <div class="conBox">
+            <div class="flexLine box">
+                <div>
+                    <div class="lft">
+                        <div class="imgBox">
+                            <img src="images/web3pay-logo.png" alt="">
+                        </div>
+                        <div class="titleTop">
+                            <div class="tit">Web3pay</div>
+                            <div>The right way to integrate web3 pay</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cardBox box">
+                <div class="flexLine">
+                    <div class="btmLft">
+                        <div class="LftH1">Web3pay</div>
+                        <div class="lftTips">Offer seamless blockchain-powered payment experiences to your users.</div>
+                        <a href="https://github.com/Web3Camp-Labs/web3pay" ><div class="learn"> Learn more</div></a>
+                    </div>
+                    <div class="btmRht">
+                            <div id="widget_container"></div>
+                            <script>
+                                Web3pay.widgetInit({
+                                    containerId:"widget_container",
+                                    accept: [
+                                            {
+                                                blockchain: 'bscTest',
+                                                amount:1,
+                                                token: '0x387Bd586130a03e4c2ae3c9b9b5481C0993Bfb00',
+                                                receiver: '0x183F09C3cE99C02118c570e03808476b22d63191'
+                                            },
+                                            {
+                                                blockchain: 'ethereum',
+                                                amount:0.0001,
+                                                // token: '0xdac17f958d2ee523a2206206994597c13d831ec7',
+                                                receiver: '0x4e260bB2b25EC6F3A59B478fCDe5eD5B8D783B02'
+                                            },
+                                            {
+                                                blockchain: 'bscTest',
+                                                    amount:1,
+                                                // token: '0xe9e7cea3dedca5984780bafc599bd69add087d56',
+                                                receiver: '0x183F09C3cE99C02118c570e03808476b22d63191'
+                                            }
+                                        ]
 
-        })
-    </script>
+                                });
+                            </script>
+                    </div>
+                </div>
+                <div>
+                    <div class="titBox">Benefits</div>
+                    <div class="flexLine top10">
+                        <dl>
+                            <dt></dt>
+                            <dd>Receive payments directly and without any intermediaries.</dd>
+                        </dl>
+                        <dl>
+                            <dt></dt>
+                            <dd>DePay automagically suggests the most cost-efficient payment to users.</dd>
+                        </dl>
+                        <dl>
+                            <dt></dt>
+                            <dd>We support Ethereum,BNB Smart Chain,Polygon.</dd>
+                        </dl>
+                    </div>
+                </div>
+                <div>
+                    <div class="titBox">Integration Options</div>
+                    <div class="flexLine top10">
+                        <dl>
+                            <dt>Html</dt>
+                            <dd>Use Web3pay in your homepage without any required experience in Javascript.</dd>
+                        </dl>
+                        <dl>
+                            <dt>Widget</dt>
+                            <dd>Fully controll the payment flow within your app.</dd>
+                        </dl>
+                        <dl>
+                            <dt>Button</dt>
+                            <dd>Place HTML and receive payments with just a click.</dd>
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="footer">
+            <div class="box">
+                <div class="midBox">
+                    <a href="https://web3camp.us" target="_blank" rel="noreferrer">
+                        <div class="lft">&copy; 2022 Web3camp.us</div>
+                    </a>
+
+                    <div>
+                        <a href="https://github.com/Web3Camp-Labs/signator" target="_blank" rel="noreferrer">
+                            <img src="images/github.png" alt=""/>
+                        </a>
+                        <a href="https://twitter.com/Web3Camp" target="_blank" rel="noreferrer">
+                            <img src="images/Twitter.png" alt=""/>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
 </body>
 </html>
