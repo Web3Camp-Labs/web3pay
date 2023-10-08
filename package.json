@@ -20,7 +20,8 @@
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "npm run clean && rollup -c ./rollup.config.js && node version.js",
-    "start": "react-scripts start"
+    "start": "react-scripts start",
+    "publish": "npm publish --access public"
   },
   "eslintConfig": {
     "extends": [
