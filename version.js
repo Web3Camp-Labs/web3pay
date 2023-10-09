@@ -12,9 +12,9 @@ fs.writeFile("./src/package.template.json", functionStr, (err, data) => {
     if (err) throw err;
     console.log("new version: " + version);
 
-    fs.copyFile("./src/package.template.json", "./dist/package.json", (err) => {
+    fs.copyFile("./src/package.template.json", "./dist/esm/package.json", (err) => {
         if (err) throw err;
-        console.log("copy 'src/package.template.json' to 'dist/package.json'")
+        console.log("copy 'src/package.template.json' to 'dist/esm/package.json'")
     })
 });
 

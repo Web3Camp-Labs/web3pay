@@ -1,6 +1,7 @@
 import Modal from "./Modal";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {ConfigProps} from "../type/type";
+import {createRoot} from "react-dom/client";
 
 const style = `
 .web3camp_widget_box{
@@ -151,7 +152,7 @@ const style = `
 
 `
 
-export default function PayBtn(props:ConfigProps){
+export function PayBtnInternal(props:ConfigProps){
     const [show, setShow] = useState(false);
     const { accept } = props;
 
@@ -170,3 +171,20 @@ export default function PayBtn(props:ConfigProps){
         <button className="web3camp_widget_button" onClick={handleShow}>Pay</button>
     </div>
 }
+
+export default function PayBtn(props:ConfigProps) {
+
+    const shadowRoot = useRef(null);
+    useEffect(() => {
+        if (shadowRoot.current) {
+            const rootElement = (shadowRoot.current as any).attachShadow({mode: "open"});
+            const root = createRoot(rootElement)
+            root.render(<PayBtnInternal {...props}/>)
+        }
+        return ()=>{
+            shadowRoot.current = null;
+        }
+    }, [shadowRoot.current]);
+
+    return <div ref={shadowRoot}></div>
+};

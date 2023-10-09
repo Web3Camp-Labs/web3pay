@@ -1,12 +1,14 @@
-import PayBtn from "./payBtn";
+import {PayBtnInternal} from "./payBtn";
 import {chainObj, ConfigProps} from "../type/type";
 import GeneralConfig from "../config";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Erc20Abi from "../abi/ERC20.json";
 import {ethers} from "ethers";
 import PublicObj from "../public";
+import {createRoot} from "react-dom/client";
 
-export default function Widget(props:ConfigProps){
+
+ const  WidgetInternal = (props:ConfigProps) =>{
     const [symbol,setSymbol] = useState<string>();
     const [logo,setLogo] = useState<string>();
     const [amount,setAmount] = useState<number>();
@@ -60,6 +62,23 @@ export default function Widget(props:ConfigProps){
                 <img src='data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iQ2hldnJvblJpZ2h0IEljb24iIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgd2lkdGg9IjE2IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik00LjY0NiAxLjY0NmEuNS41IDAgMCAxIC43MDggMGw2IDZhLjUuNSAwIDAgMSAwIC43MDhsLTYgNmEuNS41IDAgMCAxLS43MDgtLjcwOEwxMC4yOTMgOCA0LjY0NiAyLjM1NGEuNS41IDAgMCAxIDAtLjcwOHoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzkwOTA5MCIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PC9zdmc+'/>
             </div>
         </div>
-        <PayBtn accept={accept} />
+        <PayBtnInternal accept={accept} />
     </div>
 }
+
+export default function Widget(props:ConfigProps) {
+
+    const shadowRoot = useRef(null);
+    useEffect(() => {
+        if (shadowRoot.current) {
+            const rootElement = (shadowRoot.current as any).attachShadow({mode: "open"});
+            const root = createRoot(rootElement)
+            root.render(<WidgetInternal {...props}/>)
+        }
+        return ()=>{
+            shadowRoot.current = null;
+        }
+    }, [shadowRoot.current]);
+
+    return <div ref={shadowRoot}></div>
+};
