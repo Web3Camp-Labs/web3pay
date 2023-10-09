@@ -11,11 +11,11 @@ All of those way, after you click pay button, it will popup a tips to tell you t
 ## Usage
 
 ```
-    npm install @web3camp-labs/web3pay --save
+    npm install @web3camp/web3-pay --save
 ```
 or
 ```
-    yarn add @web3camp-labs/web3pay
+    yarn add @web3camp/web3-pay
 ```
 
 ### In your webpage
@@ -50,7 +50,7 @@ Button mode:
 
 Widget mode:
 ```angular2html
-    import { Widget }  from "@web3camp-labs/web3pay";
+    import { Widget }  from "@web3camp/web3-pay";
 
 
     function App() {

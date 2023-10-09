@@ -1,14 +1,14 @@
-import { __awaiter, __assign, __generator } from '../_virtual/_tslib.js';
-import { jsxs, jsx } from 'react/jsx-runtime';
-import PayBtn from './payBtn.js';
+import { __assign, __awaiter, __generator } from '../_virtual/_tslib.js';
+import { jsx, jsxs } from 'react/jsx-runtime';
+import { PayBtnInternal } from './payBtn.js';
 import GeneralConfig from '../config.js';
-import { useState, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Erc20Abi from '../abi/ERC20.json.js';
 import { ethers } from 'ethers';
 import PublicObj from '../public.js';
+import { createRoot } from 'react-dom/client';
 
-function Widget(props) {
-  var _this = this;
+var WidgetInternal = function WidgetInternal(props) {
   var _a = useState(),
     symbol = _a[0],
     setSymbol = _a[1];
@@ -39,7 +39,7 @@ function Widget(props) {
     });
   }, []);
   var getSym = function getSym(addr) {
-    return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(void 0, void 0, void 0, function () {
       var ethereum, web3Provider, arr, chainId, arrChain, contract, sym;
       var _a;
       return __generator(this, function (_b) {
@@ -92,10 +92,28 @@ function Widget(props) {
           src: 'data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iQ2hldnJvblJpZ2h0IEljb24iIGhlaWdodD0iMTYiIHZpZXdCb3g9IjAgMCAxNiAxNiIgd2lkdGg9IjE2IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Ik00LjY0NiAxLjY0NmEuNS41IDAgMCAxIC43MDggMGw2IDZhLjUuNSAwIDAgMSAwIC43MDhsLTYgNmEuNS41IDAgMCAxLS43MDgtLjcwOEwxMC4yOTMgOCA0LjY0NiAyLjM1NGEuNS41IDAgMCAxIDAtLjcwOHoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgZmlsbD0iIzkwOTA5MCIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PC9zdmc+'
         })
       })]
-    })), jsx(PayBtn, {
+    })), jsx(PayBtnInternal, {
       accept: accept
     })]
   }));
+};
+function Widget(props) {
+  var shadowRoot = useRef(null);
+  useEffect(function () {
+    if (shadowRoot.current) {
+      var rootElement = shadowRoot.current.attachShadow({
+        mode: "open"
+      });
+      var root = createRoot(rootElement);
+      root.render(jsx(WidgetInternal, __assign({}, props)));
+    }
+    return function () {
+      shadowRoot.current = null;
+    };
+  }, [shadowRoot.current]);
+  return jsx("div", {
+    ref: shadowRoot
+  });
 }
 
 export { Widget as default };
